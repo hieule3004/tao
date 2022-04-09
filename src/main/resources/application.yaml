@@ -1,0 +1,18 @@
+server:
+  port: 8081
+graphql:
+  tools:
+    schemaLocationPattern: "**/*.graphql"
+  servlet:
+    mapping: /graphql
+    tracing-enabled: true
+    actuator-metrics: true
+management:
+  trace:
+    http:
+      include:
+        - RESPONSE_HEADERS
+  endpoints:
+    web:
+      exposure:
+        include: "*"

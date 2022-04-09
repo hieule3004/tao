@@ -1,0 +1,33 @@
+type Query {
+    cast(question: String!, interpretation: Interpretation): DivinationResult!
+    lookupResult(question: String!, interpretation: Interpretation, resultString: String): DivinationResult
+    lookupHexagram(sequenceIndex: Int!): Hexagram
+}
+
+type DivinationResult {
+    question: String!
+    value: String!
+    movingLines: [Int]
+    current: Hexagram
+    future: [Hexagram]
+    interpretation: String
+}
+
+type Hexagram {
+    index: Int!
+    value: Int!
+    name: String
+    judgement: String
+    image: String
+    lines: [String]
+    judgementComment: String
+    imageComment: String
+    lineComments: [String]
+    nuclear: Hexagram
+    symmetries: [Hexagram]
+    changes: [Hexagram]
+}
+
+enum Interpretation {
+    WILHELM, KARCHER, GREGORY, KERSON, ALFRED, HENRY, WEI_TAT, CHU_HSI, NANJING
+}

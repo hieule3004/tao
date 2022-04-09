@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface InterpretationSchema<T> {
+    T interpret(DivinationResult result)
+}
+
+namespace impl {
+    class EventGenerator<Event> {
+        + Event generateEvent()
+        Event interpret(DivinationResult result)
+    }
+}
+InterpretationSchema <|-- impl.EventGenerator
+note top of impl.EventGenerator: get an oracle,\nmap to event
+
+class Divination<String> {
+    DivinationResult cast(String question)
+    String interpret(DivinationResult result)
+}
+InterpretationSchema <|-- Divination
+impl.EventGenerator o- Divination
+note top of Divination: The basic is that one ask any question\n\
+(which most likely about some action),\nthe divination will generate an oracle\n\
+that comment about the current situation,\nis the action one will take good, and\n\
+the future situation if one take action
+
+class DivinationResult {
+    String question
+    String value
+    Hexagram currentSituation
+    Hexagram futureSituation
+    int[] movingLines
+}
+Divination o-- DivinationResult
+note left of DivinationResult: 64 hexagrams, each with 6 lines,\n\
+total of 364 results could be used for\neven the most complex set of events
+
+class Hexagram {
+    int name
+    String judgement
+    String image
+    String[] lines
+}
+DivinationResult o- Hexagram
+note top of Hexagram: the interpretation of a hexagram, contains\n\
+its graphical meaning (image),\nthe oracle meaning (judgement),\n\
+and the changes in situation (lines)
+
+note "Another advantage is that this system\n\
+is related to 5 element system, which\n\
+is really good for character generator in\n\
+an RPG setting (growth curve, affinity,...)" as Note
+@enduml
