@@ -21,7 +21,8 @@ function handleBattleEnded() {
   gsap.to('#overlappingDiv', {
     opacity: 1,
     onComplete: () => {
-      cancelAnimationFrame(battleAnimationId)
+      // cancelAnimationFrame(battleAnimationId)
+      gameState.setUiState(UiState.town)
       animate()
       document.querySelector('#userInterface').style.display = 'none'
 
@@ -29,7 +30,6 @@ function handleBattleEnded() {
         opacity: 0
       })
 
-      gameState.uiState = UiState.town
       // battle.initiated = false
       audio.Map.play()
     }
@@ -96,13 +96,16 @@ function initBattle() {
 }
 
 function animateBattle() {
-  battleAnimationId = window.requestAnimationFrame(animateBattle)
+  gameState.setUiState(UiState.battle)
+  battleAnimationId = gameState.getAnimationId()
+  // battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
 
   renderedSprites.forEach((sprite) => {
     sprite.draw()
   })
 }
+UiState.battle.animation = animateBattle
 
 animate()
 // initBattle()

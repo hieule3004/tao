@@ -19,8 +19,8 @@ collisions.forEach((v, p) => {
   if (v === 0) return;
   boundaries.push(new Boundary({
     position: {
-      x: (p % imageWidth) * Boundary.width + offset.x,
-      y: (p / imageWidth >> 0) * Boundary.height + offset.y
+      x: (p % imageWidth) * pixel.width + offset.x,
+      y: (p / imageWidth >> 0) * pixel.height + offset.y
     }
   }))
 })
@@ -30,8 +30,8 @@ battleZonesData.forEach((v, p) => {
   if (v === 0) return;
   battleZones.push(new Boundary({
     position: {
-      x: (p % imageWidth) * Boundary.width + offset.x,
-      y: (p / imageWidth >> 0) * Boundary.height + offset.y
+      x: (p % imageWidth) * pixel.width + offset.x,
+      y: (p / imageWidth >> 0) * pixel.height + offset.y
     }
   }))
 })
@@ -108,8 +108,10 @@ function rectangularCollision({rectangle1, rectangle2}) {
 }
 
 function animate() {
-  // const animationId = window.requestAnimationFrame(animate)
   gameState.setUiState(UiState.town)
+  // const animationId = window.requestAnimationFrame(animate)
+  const animationId = gameState.getAnimationId()
+
   background.draw()
   boundaries.forEach(boundary => boundary.draw())
   battleZones.forEach(battleZone => battleZone.draw())
@@ -142,7 +144,7 @@ function animate() {
           rectangle2: battleZone
         }) &&
         overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.01
+        Math.random() < 0.1
       ) {
         // deactivate current animation loop
         gameState.setUiState(UiState.battle)
@@ -210,6 +212,7 @@ function animate() {
       })
   }
 }
+UiState.town.animation = animate
 
 // animate()
 

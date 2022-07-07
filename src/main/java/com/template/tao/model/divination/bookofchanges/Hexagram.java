@@ -47,10 +47,13 @@ public class Hexagram implements Comparable<Hexagram> {
 
   public List<Hexagram> getSymmetries() {
     // chunk of factor
-    return Tuple.of(Tuple.of(MathUtils.getCombinations(MathUtils.getFactors(NUM_LINES).reverse()),
+    return Tuple.of(Tuple.of(MathUtils.getCombinations(List.of(1,3)),
                 List.ofAll(MathUtils.toBinaryString(this.value, NUM_LINES).chars().mapToObj(i -> i - '0')))
             .apply((combinations, bits) -> combinations
-                .map(c -> c.foldLeft(bits, (bs, size) -> bs.grouped(size).map(List::reverse).reduce((List::appendAll))))))
+                .map(c -> c.foldLeft(bits, (bs, size) -> bs.grouped(size)
+                    .toList().reverse()
+                    .reduce(List::appendAll)))))
+//        ._1
         .apply(ls -> ls.appendAll(ls.map(bs -> bs.map(i -> 1 - i))))
         .map(ls -> ls.reduceLeft((a, b) -> (a << 1) + b))
         .map(BookOfChanges::fromLineValue);

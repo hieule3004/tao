@@ -25,7 +25,7 @@ import static com.template.tao.model.divination.bookofchanges.Interpretation.*;
 @RequiredArgsConstructor
 public class BookOfChanges {
 
-  private static final List<Hexagram> BOOK = createBook();
+  public static final List<Hexagram> BOOK = createBook();
   private static final List<Integer> LINE_INDEX_MAP = BOOK.sortBy(Hexagram::getValue).map(Hexagram::getIndex);
   private static final Map<Hexagram, HexagramGroup> SYMMETRY_MAP = createSymmetryMap();
   public static final List<HexagramGroup> SYMMETRIC_GROUPS = SYMMETRY_MAP.values().distinct().toList();
@@ -178,11 +178,11 @@ public class BookOfChanges {
 
   private static Map<Hexagram, HexagramGroup> createSymmetryMap() {
     return BOOK
-        .foldLeft(Tuple.of(HashMap.<Hexagram, HexagramGroup>empty(), HashSet.empty()),
-            (t, s) -> t._2.contains(s) ? t : Tuple.of(new HexagramGroup(s.getSymmetries()))
+        .foldLeft(Tuple.of(HashMap.<Hexagram, HexagramGroup>empty(), HashSet.<Hexagram>empty()),
+            (t, s) -> t._2.contains(s) ? t : Tuple.of(HexagramGroup.of(s.getSymmetries()))
                 .apply(ss -> Tuple.of(
                     ss.getGroup().foldLeft(t._1, (m, h) -> m.put(h.getHexagram(), ss)),
-                    t._2.addAll(ss.getGroup()))))
+                    t._2.addAll(ss.getGroup().map(HexagramGroup.Item::getHexagram)))))
         ._1;
   }
 

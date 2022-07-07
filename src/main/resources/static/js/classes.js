@@ -1,27 +1,34 @@
+const pixel = {
+  width: 48,
+  height: 48
+}
+
 const UiState = Object.freeze({
   town: {
-    animation: animate
+    animation: null
   },
   battle: {
-    animation: animateBattle
+    animation: null
   }
 })
 
 class GameState {
   constructor(
     {
-      uiState = UiState.town
+      uiState = null
     }
   ) {
-    this.setUiState(uiState)
   }
 
   setUiState(uiState) {
-    if (this.uiState !== uiState) {
-      window.cancelAnimationFrame(this.uiState.animation)
-      this.uiState = uiState
-    }
-    this.animationId = window.requestAnimationFrame(uiState.animation)
+    if (this.uiState === uiState) return;
+    this.uiState = uiState
+    window.cancelAnimationFrame(this.animationId)
+  }
+
+  getAnimationId() {
+     this.animationId = window.requestAnimationFrame(this.uiState.animation)
+    return this.animationId
   }
 }
 
@@ -234,13 +241,10 @@ class Monster extends Sprite {
 }
 
 class Boundary {
-  static width = 48
-  static height = 48
-
   constructor({position}) {
     this.position = position
-    this.width = Boundary.width
-    this.height = Boundary.height
+    this.width = pixel.width
+    this.height = pixel.height
   }
 
   draw() {

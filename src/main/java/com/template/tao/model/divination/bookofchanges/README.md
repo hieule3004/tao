@@ -23,11 +23,6 @@ For the rest of this post, I will introduce concept of I Ching and how it could 
 I Ching<sup>2</sup> (or Yi Jing) is an ancient Chinese divination text. This method of divination, which is rooted from
 Taoism, is still popular to this day in countries influenced by Chinese culture.
 
-To summarise, the divination method involve asking a question, then use a randomise process (counting stack or tossing
-coins) to generate an oracle (a changing hexagram). That result can be interpreted to unfold the following about the
-question: the current situation, should action be taken, the future situation where action taken. In addition, one can
-gain even more knowledge looking at related diagrams from that result.
-
 You can look at this very detailed blog post<sup>2</sup> (even ignore examples) to gain basic idea about I Ching.
 
 #### The structure
@@ -47,13 +42,30 @@ is invigorating and naturally enthusiastic.
 
 #### The divination
 
-As summarised above, 
+To make it simple, the divination method involve asking a question, then use a randomise process<sup>3</sup> (counting stack 
+or tossing coins) to generate an oracle<sup>4</sup> (a changing hexagram). That result can be interpreted<sup>5</sup> to unfold the 
+following about the question: the current situation, should action be taken, the future situation where action taken. 
+In addition, one can gain even more knowledge looking at related diagrams from that result.
+
+#### What I Ching has to offer?
+
+The system is very easy to implement and use, both by human and computer. This is due to the system being a binary system,
+and random process could be as simple as tossing coin. Thus one only need to determine rule of interpretation and have 
+result lookup table to .
+
+
 
 ### References
 
-[1] https://www.scaleyourapp.com/procedural-generation-a-comprehensive-guide-in-simple-words/
+[1] https://www.scaleyourapp.com/procedural-generation-a-comprehensive-guide-in-simple-words
 
 [2] https://twodreams.us/blog/strategic-divination-using-the-i-ching
+
+[3] http://www.russellcottrell.com/virtualyarrowstalks/coins.htm
+
+[4] https://www.iching-online.com/hexagrams/
+
+[5] http://www.russellcottrell.com/virtualyarrowstalks/rules.htm
 
 ---
 
